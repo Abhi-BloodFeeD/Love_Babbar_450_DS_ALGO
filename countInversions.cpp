@@ -6,6 +6,7 @@ using namespace std;
  // } Driver Code Ends
 class Solution{
   public:
+    ll score=0;
     // arr[]: Input Array
     // N : Size of the Array arr[]
     // Function to count inversions in the array.
@@ -13,12 +14,15 @@ class Solution{
       vector<ll>solution;
       ll runner_1=start , runner_2 = mid+1;
       
+
       //Running merge elements
       while(runner_1<=mid && runner_2<=end){
-        if(arr[runner_1]<arr[runner_2])
+        if(arr[runner_1]<=arr[runner_2])
           solution.push_back(arr[runner_1++]);
-        else
+        else{
           solution.push_back(arr[runner_2++]);
+          score+=mid-runner_1+1;
+        }
        }
       
       //Remaining if any in first half
@@ -34,7 +38,7 @@ class Solution{
       for(int i=start;i<=end;i++){
         arr[i] = solution[run++];
       }
-      return
+      return;
     }
     //TIME - O(NLOGN) || Space - O(N)
     void mergeSort(ll *arr,ll start,ll end){
@@ -44,9 +48,11 @@ class Solution{
       mergeSort(arr,mid+1,end);
       merge(arr,start,mid,end);
     }
+    
     long long int inversionCount(long long arr[], long long N)
-    {
-        
+    {    
+        mergeSort(arr,0,N-1);
+        return (long long int)score;
     }
 
 };
@@ -54,6 +60,10 @@ class Solution{
 // { Driver Code Starts.
 
 int main() {
+  #ifndef ONLINE_JUDGE
+  freopen("input.txt","r",stdin);
+  freopen("output.txt","w",stdout);
+  #endif
     
     long long T;
     cin >> T;
