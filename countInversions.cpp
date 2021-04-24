@@ -1,21 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define ll long long
 
- // } Driver Code Ends
 class Solution{
   public:
-    ll score=0;
-    // arr[]: Input Array
-    // N : Size of the Array arr[]
-    // Function to count inversions in the array.
-    void merge(ll *arr,ll start,ll mid,ll end){
-      vector<ll>solution;
-      ll runner_1=start , runner_2 = mid+1;
-      
-
-      //Running merge elements
+    long long score=0;
+    
+    void merge(long long *arr,long long start,long long mid,long long end){
+      vector<long long>solution;
+      long long runner_1=start , runner_2 = mid+1;
       while(runner_1<=mid && runner_2<=end){
         if(arr[runner_1]<=arr[runner_2])
           solution.push_back(arr[runner_1++]);
@@ -24,14 +17,9 @@ class Solution{
           score+=mid-runner_1+1;
         }
        }
-      
-      //Remaining if any in first half
       while(runner_1<=mid){
         solution.push_back(arr[runner_1++]); 
-      }
-      
-      //Remaining if any in Second half
-      while(runner_2<=end){
+      }while(runner_2<=end){
         solution.push_back(arr[runner_2++]);
       }  
       int run=0;
@@ -40,19 +28,19 @@ class Solution{
       }
       return;
     }
-    //TIME - O(NLOGN) || Space - O(N)
-    void mergeSort(ll *arr,ll start,ll end){
+    void mergeSort(long long *arr,long long start,long long end){
       if(start==end)return;
-      ll mid = (start+end)/2;
+      long long mid = (start+end)/2;
       mergeSort(arr,start,mid);
       mergeSort(arr,mid+1,end);
       merge(arr,start,mid,end);
+      return ;
     }
     
     long long int inversionCount(long long arr[], long long N)
     {    
-        mergeSort(arr,0,N-1);
-        return (long long int)score;
+      mergeSort(arr,0,N-1);
+      return score;
     }
 
 };
@@ -78,6 +66,7 @@ int main() {
         }
         Solution obj;
         cout << obj.inversionCount(A,N) << endl;
+        
     }
     
     return 0;
